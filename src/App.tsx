@@ -1,15 +1,12 @@
-
-
-import './App.css'
+import "./App.css";
+import TextShuffler from "./components/TextShuffler";
 
 function App() {
- 
-
   return (
-    <>
-   <p>hello</p>
-    </>
-  )
+    <div className="app">
+      <TextShuffler />
+    </div>
+  );
 }
 
-export default App
+export default App;
