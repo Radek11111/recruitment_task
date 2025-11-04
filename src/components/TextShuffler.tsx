@@ -1,34 +1,54 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { shuffleTextPreservingPunctuation } from "../utils/shuffleInnerTextLetter";
 
 export default function TextShuffler() {
   const [inputText, setInputText] = useState<string>("");
   const [outputText, setOutputText] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    if (!file) return;
+  const handleFile = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      setInputText(String(reader.result ?? ""));
-    };
-    reader.readAsText(file, "UTF-8");
-  };
+      if (file.type.includes("text/") && !file.name.endsWith(".txt")) {
+        alert("Proszę wgrać plik tekstowy (.txt)");
+        return;
+      }
+      setIsLoading(true);
 
-  const handleShuffle = () => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const text = String(reader.result ?? "");
+        setInputText(text);
+        setOutputText(text);
+        setIsLoading(false);
+      };
+      reader.readAsText(file, "UTF-8");
+    },
+    []
+  );
+
+  const handleShuffle = useCallback(() => {
+    if (!inputText.trim()) return;
+
     const lines = inputText.split(/\r?\n/);
-    const out = lines
+    const outshuffledLines = lines
       .map((line) => {
         return shuffleTextPreservingPunctuation(line);
       })
       .join("\n");
-    setOutputText(out);
-  };
+    setOutputText(outshuffledLines);
+  }, [inputText]);
+
+  const handleClear = useCallback(() => {
+    setInputText("");
+    setOutputText("");
+  }, []);
 
   return (
-    <div className="">
-      <div className="">
+    <div className="container">
+      <div className="header">
         <h3>Zadanie 1. </h3>
         <p>
           Napisz program w React, który posiada obsługę formularza do wgrania
@@ -38,14 +58,21 @@ export default function TextShuffler() {
           znaki.
         </p>
       </div>
-      <div className="">
+      <div className="file-section">
         <input type="file" accept=".txt" onChange={handleFile} />
+        {isLoading && <p>Wczytywanie...</p>}
       </div>
-      <div className="">
-        <button onClick={handleShuffle}>Przetasuj losowo</button>
-        <p>Wynik:</p>
-        <textarea readOnly value={outputText} />
+      <div className="button-section">
+        <button onClick={handleShuffle} disabled={isLoading}>
+          Przetasuj losowo
+        </button>
+        <button onClick={handleClear} disabled={isLoading}>
+          Wyczyść
+        </button>
       </div>
+      <div className="text-area"></div>
+      <p>Wynik:</p>
+      <textarea readOnly value={outputText} rows={10} />
     </div>
   );
 }

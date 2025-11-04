@@ -6,18 +6,19 @@ export const shuffleInnerTextLetter = (world: string): string => {
   const last = chars[chars.length - 1];
   const middle = chars.slice(1, -1);
 
-  for (let i = middle.length - 1; i > 0; i--) {
+  const shuffleMiddle = [...middle];
+
+  for (let i = shuffleMiddle.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    const tmp = middle[i];
-    middle[i] = middle[j];
-    middle[j] = tmp;
+    [shuffleMiddle[i], shuffleMiddle[j]] = [shuffleMiddle[j], shuffleMiddle[i]];
   }
 
-  const origMiddle = Array.from(world).slice(1, -1);
-  const resultMiddle = middle.map((char, index) => {
-    const isUpper = origMiddle[index] === origMiddle[index].toUpperCase();
+  const resultMiddle = shuffleMiddle.map((char, index) => {
+    const originalChar = middle[index];
+    const isUpper = originalChar === originalChar.toUpperCase();
     return isUpper ? char.toUpperCase() : char.toLowerCase();
   });
+
   return [first, ...resultMiddle, last].join("");
 };
 
