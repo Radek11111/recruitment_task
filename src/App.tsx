@@ -1,12 +1,13 @@
 import "./App.css";
-import PeselValidation from "./components/PeselValidation";
+import Pesel from "./components/Pesel";
+
 import TextShuffler from "./components/TextShuffler";
 
 function App() {
   return (
     <div className="app">
       <TextShuffler />
-      <PeselValidation />
+      <Pesel />
     </div>
   );
 }
