@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { shuffleTextPreservingPunctuation } from "../utils/shuffleInnerTextLetter";
+import "./TextShuffler.css";
 
 export default function TextShuffler() {
   const [inputText, setInputText] = useState<string>("");
@@ -47,10 +48,10 @@ export default function TextShuffler() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="card text-shuffler">
       <div className="header">
         <h3>Zadanie 1. </h3>
-        <p>
+        <p className="description">
           Napisz program w React, który posiada obsługę formularza do wgrania
           pliku tekstowego, a następnie przestawi losowo szyk liter w każdym
           wierszu oprócz pierwszej i ostatniej litery wyrazu. Uwzględnij
@@ -66,13 +67,18 @@ export default function TextShuffler() {
         <button onClick={handleShuffle} disabled={isLoading}>
           Przetasuj losowo
         </button>
-        <button onClick={handleClear} disabled={isLoading}>
+        <button
+          onClick={handleClear}
+          disabled={isLoading}
+          className="secondary"
+        >
           Wyczyść
         </button>
       </div>
-      <div className="text-area"></div>
-      <p>Wynik:</p>
-      <textarea readOnly value={outputText} rows={10} />
+      <div className="text-area">
+        <p>Wynik:</p>
+        <textarea readOnly value={outputText} rows={10} />
+      </div>
     </div>
   );
 }
