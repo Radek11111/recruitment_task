@@ -1,73 +1,29 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🧮 Zadanie rekrutacyjne – Walidacja numeru PESEL
 
-Currently, two official plugins are available:
+Ten projekt to prosta aplikacja w TypeScript + React, stworzona w ramach zadania rekrutacyjnego.  
+Zawiera funkcję do losowego przestawiania szyku liter w zaimportowanym pliku .txt(`shuffleInnerTextLetter`). Zawiera funkcję do  walidacji numeru PESEL (`peselValidate`) oraz zestaw testów sprawdzających jej poprawność. Oraz obługę API do wyświetlania listy użytkowników możliwości ich wyszukania oraz lokalnej edycji istniejących plików(pobranych z API https://gorest.co.in/)(`Users`).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Jak uruchomić projekt
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 1️⃣ Sklonuj repozytorium
+```bash
+git clone https://github.com/Radek11111/recruitment_task.git
+cd recruitment_task
 
-## Expanding the ESLint configuration
+    2️⃣ Zainstaluj zależności:
+      npm install
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+      3️⃣ Uruchom serwer deweloperski:
+        npm run dev
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+        4️⃣ Po uruchomieniu otwórz przeglądarkę i przejdź pod adres:
+          http://localhost:5173
+          
+          5️⃣ Uruchom testy:
+            npm run test
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
