@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { type PeselValidation } from "../utils/peselValidation";
 import { validatePesel } from "../utils/peselValidation";
+import "./Pesel.css";
 
 export default function Pesel() {
   const [pesel, setPesel] = useState("");
@@ -31,7 +32,7 @@ export default function Pesel() {
   };
 
   return (
-    <div className="card">
+    <div className="card pesel-card">
       <div className="header">
         <h3>Zadanie 2.</h3>
         <p>
@@ -55,7 +56,6 @@ export default function Pesel() {
               : ""
           }`}
         />
-        
       </div>
       <div className="validation-result">
         {validation && (
@@ -84,9 +84,7 @@ export default function Pesel() {
           </div>
         )}
         {pesel.length > 0 && pesel.length < 11 && (
-          <div className="result-warning">
-            Wprowadź 11-cyfrowy numer PESEL
-          </div>
+          <div className="result-warning">Wprowadź 11-cyfrowy numer PESEL</div>
         )}
       </div>
     </div>
